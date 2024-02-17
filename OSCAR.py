@@ -197,7 +197,6 @@ Filein = 'Crop_COVID_19'
 # choose Yc-Tc types
 TYform = 'Qua'  # Qua / Log / LogCub / Log2.5
 ty = 0  
-# Quadratic function
 # For quadratic equation: 
 # Other Crops
 Para_A = [-0.0067]
