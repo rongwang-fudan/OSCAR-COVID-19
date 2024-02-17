@@ -197,6 +197,7 @@ Filein = 'Crop_COVID_19'
 # choose Yc-Tc types
 TYform = 'Qua'  # Qua / Log / LogCub / Log2.5
 ty = 0  
+# Quadratic function
 # For quadratic equation: 
 # Other Crops
 Para_A = [-0.0067]
@@ -264,15 +265,15 @@ mod_Cropeqs = 'Multiple_Fixed'
 
 if (mod_Cropeqs == 'Simple'):
     SAR_Non_C = [-1.4766]
-    SAR_Cot_C = [2.1069]
-    SAR_Mai_C = [2.2381]
-    SAR_Rub_C = [0.6981]        
+    SAR_Cot_C = [2.1843]
+    SAR_Mai_C = [2.4700]
+    SAR_Rub_C = [0.3832]        
     
 if (mod_Cropeqs == 'Multiple_Fixed'):
     SAR_Non_C = [-1.4766]
-    SAR_Cot_C = [2.0644]
-    SAR_Mai_C = [1.2400]
-    SAR_Rub_C = [-2.1123]
+    SAR_Cot_C = [2.2586]
+    SAR_Mai_C = [2.8249]
+    SAR_Rub_C = [-1.6761]
   
 # Land cover transfor mode
 # 'For1Mar2', 'Mar1For2'
@@ -299,7 +300,8 @@ if mod_fertilizers == 'Tian':
 ## Carbon-Neutrality | Net-Zero-Emissions | No-Action | BECCS
 mod_Carbonreduction = 'BECCS'
 # Peak carbon emissions time
-Actime = 2030
+Actime = cbtime[atime]
+#Actime = 2050
 
 ###################################################
 ##################################################
