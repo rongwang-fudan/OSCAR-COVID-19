@@ -170,13 +170,13 @@ for var in ['Cot','Mai','MaiC','MaiF','Rub','Ric','Whe','Rest']:
     exec('Prod'+var+' = Prod'+var+'_online[0,...]')
     exec('Area'+var+' = Area'+var+'_online[0,...]')
     
-    exec('Data_CProd'+var+' = pd.DataFrame(Prod'+var+')')
-    exec('Data_CArea'+var+' = pd.DataFrame(Area'+var+')')    
+    exec('Data_CProd'+var+' =  pd.DataFrame(Prod'+var+')')
+    exec('Data_CArea'+var+' =  pd.DataFrame(Area'+var+')')    
     exec('Data_CProd'+var+".to_excel('results/online/'+scen_EFF+'_'+covidinf[covid]+'_'+ExpSeq+'_'+mod_Cropdemand+'_'+mod_Cropeqs+'_Prod"+var+str(ind_final+1700)+'_Actime'+str(Actime)+'_'+calories+".xlsx',header=None,index=None)")
     exec('Data_CArea'+var+".to_excel('results/online/'+scen_EFF+'_'+covidinf[covid]+'_'+ExpSeq+'_'+mod_Cropdemand+'_'+mod_Cropeqs+'_Area"+var+str(ind_final+1700)+'_Actime'+str(Actime)+'_'+calories+".xlsx',header=None,index=None)") 
     
-    exec('Data_Prod'+var+' = np.sum(pd.DataFrame(Prod'+var+'),1)')
-    exec('Data_Area'+var+' = np.sum(pd.DataFrame(Area'+var+'),1)')    
+    exec('Data_Prod'+var+' =  np.sum(pd.DataFrame(Prod'+var+'),1)')
+    exec('Data_Area'+var+' =  np.sum(pd.DataFrame(Area'+var+'),1)')    
     exec('Data_Prod'+var+".to_excel('results/online/'+scen_EFF+'_'+covidinf[covid]+'_'+ExpSeq+'_'+mod_Cropdemand+'_'+mod_Cropeqs+'_TotalProd"+var+str(ind_final+1700)+'_Actime'+str(Actime)+'_'+calories+".xlsx',header=None,index=None)")
     exec('Data_Area'+var+".to_excel('results/online/'+scen_EFF+'_'+covidinf[covid]+'_'+ExpSeq+'_'+mod_Cropdemand+'_'+mod_Cropeqs+'_TotalArea"+var+str(ind_final+1700)+'_Actime'+str(Actime)+'_'+calories+".xlsx',header=None,index=None)")   
 
@@ -185,10 +185,27 @@ Area_con = np.zeros([401,171],dtype=dty)
 Area_con= AreaCot + AreaMai + AreaRic + AreaWhe + AreaRest + AreaRub
 Areacon = pd.DataFrame(Area_con)
 exec('Areacon'+".to_excel('results/online/'+scen_EFF+'_'+covidinf[covid]+'_'+ExpSeq+'_'+mod_Cropdemand+'_'+mod_Cropeqs+'_Areacon"+str(ind_final+1700)+'_Actime'+str(Actime)+'_'+calories+".xlsx',header=None,index=None)")
+# D_gst
+D_gst_Result = pd.DataFrame(np.zeros([ind_final-150+1,2]),columns = ['Year','D_gst'])
+D_gst_cal =  D_gst_online[:,150:].transpose(1,0) - 0.23
+D_gst_cal[149:,:] = D_gst_cal[149:,:] - 0.45947
+D_gst_Result.loc[:,'Year'] = np.arange(1850,ind_final+1701) # ind_final+1701
+D_gst_Result.loc[:,'D_gst'] = D_gst_cal
+D_gst_Result.to_excel('results/online/'+scen_EFF+'_'+covidinf[covid]+'_'+ExpSeq+'_'+mod_Cropdemand+'_'+mod_Cropeqs+'_Gst'+str(ind_final+1700)+'_Actime'+str(Actime)+'_'+calories+'.xlsx',index=False)
 
+'''
 # D_gst
 D_gst_Result = pd.DataFrame(np.zeros([ind_final-150+1,2]),columns = ['Year','D_gst'])
 D_gst_Result.loc[:,'Year'] = np.arange(1850,ind_final+1701) # ind_final+1701
 D_gst_Result.loc[:,'D_gst'] = D_gst_online[:,150:].transpose(1,0)-0.6893
 D_gst_Result.to_excel('results/online/'+scen_EFF+'_'+covidinf[covid]+'_'+ExpSeq+'_'+mod_Cropdemand+'_'+mod_Cropeqs+'_Gst'+str(ind_final+1700)+'_Actime'+str(Actime)+'_'+calories+'.xlsx',index=False)
 
+# Global warming during 1850-2100 relative to 1850
+D_gst_cal = D_gst_online[:,150:].transpose(1,0) - 0.23
+# Calibrate by IPCC-AR6 (1999-2019)
+IPCC_AR6 = np.array([line for line in csv.reader(open('data/'+Filein+'/IPCC-AR6-OG.csv','r'))], dtype=dty)[149:,:]
+D_gst_cal[149:170,:] = IPCC_AR6 - 0.03
+D_gst_cal[170:,:] = D_gst_cal[170:,:] - 0.45947
+D_gst_Result.loc[:,'D_gst'] = D_gst_cal
+D_gst_Result.to_excel('results/online/'+scen_EFF+'_'+covidinf[covid]+'_'+ExpSeq+'_'+mod_Cropdemand+'_'+mod_Cropeqs+'_Gst'+str(ind_final+1700)+'_Actime'+str(Actime)+'_'+calories+'.xlsx',index=False)
+'''
