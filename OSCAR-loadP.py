@@ -511,59 +511,41 @@ if (mod_Cropeqs == 'Simple'):
     # COVID-19 for cotton demands        
     def f_Cotdemand(COVID_Inf,SAR_Cot_C,SAR_Non_C):            
         # Nonwoven(kg)
-        precotton = 10**(-0.0778*(math.log10(COVID_Inf))+ SAR_Cot_C[ty])*0.0264+SAR_Non_C[ty]
+        precotton = 10**(-0.0323*((COVID_Inf)) + SAR_Cot_C[ty])*0.0139/0.54 + SAR_Non_C[ty]
         # Mask(kg)
-        v_mask = 10**(-0.0778*(math.log10(COVID_Inf))+ SAR_Cot_C[ty])*12.5/1000
+        v_mask = 10**(-0.0323*((COVID_Inf)) + SAR_Cot_C[ty])*12.5/1000
         cropcp = (precotton/0.93 + v_mask*0.46/5.0)/0.9251       
         return np.array(cropcp, dtype=dty)       
     # COVID-19 for maize demands 
     def f_Maidemand(COVID_Inf,SAR_Mai_C):
         # Per capita consumption of ethanol/corn (kg)
-        if COVID_Inf > 0.05:
-            #Quadratic
-            cropcp = (10**(0.7943*(math.log10(COVID_Inf))**2 + 0.2963*math.log10(COVID_Inf) + SAR_Mai_C[ty])*0.75/1000/0.32)/(1-0.0494)
-        else:
-            #Simple
-            cropcp = (10**(-0.74*math.log10(COVID_Inf) + 1.9)*0.75/1000/0.32)/(1-0.0494)
-            if cropcp > 14:
-                cropcp = 14 # max from estimated data
-            else:
-                cropcp = cropcp                
+        cropcp = (10**(0.0602*(COVID_Inf) + SAR_Mai_C[ty])*0.75/1000/0.32)/(1-0.0494)            
         return np.array(cropcp, dtype=dty)
     # COVID-19 for rubber demands  
     def f_Rubdemand(COVID_Inf,SAR_Rub_C):
         # Each gloves weight:7 g
-        cropcp = (10**(0.3108*(math.log10(COVID_Inf))**2 + 0.8438*(math.log10(COVID_Inf)) + SAR_Rub_C[ty])*3.5/1000)/(1-0.1004)
+        cropcp = (10**(0.2200*((COVID_Inf)) + SAR_Rub_C[ty])*3.5/1000)/(1-0.1004)
         return np.array(cropcp, dtype=dty)
     
     ## PPE demands
     # COVID-19 for cotton demands  
     def p_Nondemand(COVID_Inf,SAR_Cot_C,SAR_Non_C):            
         # Nonwoven(kg)
-        precotton = 10**(-0.0778*(math.log10(COVID_Inf))+ SAR_Cot_C[ty])*0.0264+SAR_Non_C[ty]
+        precotton = 10**(-0.0323*((COVID_Inf)) + SAR_Cot_C[ty])*0.0139/0.54 + SAR_Non_C[ty]
         cropcp = (precotton/0.93)/0.9251       
         return np.array(cropcp, dtype=dty) 
     def p_Cotdemand(COVID_Inf,SAR_Cot_C):            
         # Mask(single)
-        v_mask = 10**(-0.0778*(math.log10(COVID_Inf))+ SAR_Cot_C[ty])
+        v_mask = 10**(-0.0323*((COVID_Inf)) + SAR_Cot_C[ty])
         cropcp = (v_mask*0.46)/0.9251       
         return np.array(cropcp, dtype=dty)   
     def p_Maidemand(COVID_Inf,SAR_Mai_C):
         # Per capita consumption of ethanol/corn (kg)
-        if COVID_Inf > 0.05:
-            #Quadratic
-            cropcp = (10**(0.7943*(math.log10(COVID_Inf))**2 + 0.2963*math.log10(COVID_Inf) + SAR_Mai_C[ty])/1000)/(1-0.0494)
-        else:
-            #Linear
-            cropcp = (10**(-0.74*math.log10(COVID_Inf) + 1.9)*0.75/1000/0.32)/(1-0.0494)
-            if cropcp > 14:
-                cropcp = 14 # max from estimated data
-            else:
-                cropcp = cropcp                
+        cropcp = (10**(0.0602*(COVID_Inf) + SAR_Mai_C[ty])/1000)/(1-0.0494)            
         return np.array(cropcp, dtype=dty)
     def p_Rubdemand(COVID_Inf,SAR_Rub_C):
         # Gloves : single
-        cropcp = (10**(0.3108*(math.log10(COVID_Inf))**2 + 0.8438*(math.log10(COVID_Inf)) + SAR_Rub_C[ty]))/(1-0.1004)
+        cropcp = (10**(0.2200*((COVID_Inf)) + SAR_Rub_C[ty]))/(1-0.1004)
         return np.array(cropcp, dtype=dty)
 
 
@@ -572,59 +554,41 @@ if (mod_Cropeqs == 'Multiple_Fixed'):
     # COVID-19 for cotton demands  
     def f_Cotdemand(COVID_Inf,SAR_Cot_C,SAR_Non_C):            
         # Nonwoven(kg)
-        precotton = 10**(-0.0886*(math.log10(COVID_Inf))+ SAR_Cot_C[ty] + 0.0411)*0.0264+SAR_Non_C[ty]
+        precotton = 10**(-0.0327*((COVID_Inf)) + SAR_Cot_C[ty])*0.0139/0.54 + SAR_Non_C[ty]
         # Mask(kg)
-        v_mask = 10**(-0.0886*(math.log10(COVID_Inf))+ SAR_Cot_C[ty])*12.5/1000
+        v_mask = 10**(-0.0327*((COVID_Inf)) + SAR_Cot_C[ty])*12.5/1000
         cropcp = (precotton/0.93 + v_mask*0.46/5.0)/0.9251       
-        return np.array(cropcp, dtype=dty)        
+        return np.array(cropcp, dtype=dty)    
     # COVID-19 for maize demands 
     def f_Maidemand(COVID_Inf,SAR_Mai_C):
         # Per capita consumption of ethanol/corn (kg)
-        if COVID_Inf > 0.05:
-            #Quadratic
-            cropcp = (10**(0.6652*(math.log10(COVID_Inf))**2 + 0.2085*math.log10(COVID_Inf) + SAR_Mai_C[ty]+1.0658)*0.75/1000/0.32)/(1-0.0494)
-        else:
-            #Linear
-            cropcp = (10**(-0.74*math.log10(COVID_Inf) + 1.9)*0.75/1000/0.32)/(1-0.0494)
-            if cropcp > 14:
-                cropcp = 14 # max from estimated data
-            else:
-                cropcp = cropcp                
+        cropcp = (10**( 0.0359*(COVID_Inf) + SAR_Mai_C[ty])*0.75/1000/0.32)/(1-0.0494)              
         return np.array(cropcp, dtype=dty)  
     # COVID-19 for rubber demands  
     def f_Rubdemand(COVID_Inf,SAR_Rub_C):
         # Each gloves weight:6 g
-        cropcp = (10**(0.2389*(math.log10(COVID_Inf))**2 + 0.4467*(math.log10(COVID_Inf)) + SAR_Rub_C[ty] + 2.8510)*3.5/1000)/(1-0.1004)
+        cropcp = (10**( 0.0971*((COVID_Inf)) + SAR_Rub_C[ty] + 2.3400)*3.5/1000)/(1-0.1004)
         return np.array(cropcp, dtype=dty)
     
     ## PPE demands
     # COVID-19 for cotton demands  
     def p_Nondemand(COVID_Inf,SAR_Cot_C,SAR_Non_C):            
         # Nonwoven(kg)
-        precotton = 10**(-0.0886*(math.log10(COVID_Inf))+ SAR_Cot_C[ty] + 0.0411)*0.0264+SAR_Non_C[ty]
+        precotton = 10**(-0.0327*((COVID_Inf)) + SAR_Cot_C[ty])*0.0139/0.54 + SAR_Non_C[ty]
         cropcp = (precotton/0.93)/0.9251       
         return np.array(cropcp, dtype=dty) 
     def p_Cotdemand(COVID_Inf,SAR_Cot_C):            
         # Mask(kg)
-        v_mask = 10**(-0.0886*(math.log10(COVID_Inf))+ SAR_Cot_C[ty])
+        v_mask = 10**(-0.0327*((COVID_Inf))+ SAR_Cot_C[ty])
         cropcp = (v_mask*0.46)/0.9251       
         return np.array(cropcp, dtype=dty)   
     def p_Maidemand(COVID_Inf,SAR_Mai_C):
         # Per capita consumption of ethanol/corn (kg)
-        if COVID_Inf > 0.05:
-            #Quadratic
-            cropcp = (10**(0.6652*(math.log10(COVID_Inf))**2 + 0.2085*math.log10(COVID_Inf) + SAR_Mai_C[ty]+1.0658)/1000)/(1-0.0494)
-        else:
-            #Linear
-            cropcp = (10**(-0.74*math.log10(COVID_Inf) + 1.9)/1000)/(1-0.0494)
-            if cropcp > 14:
-                cropcp = 14 # max from estimated data
-            else:
-                cropcp = cropcp                
+        cropcp = (10**( 0.0359*(COVID_Inf) + SAR_Mai_C[ty])/1000)/(1-0.0494)              
         return np.array(cropcp, dtype=dty)
     def p_Rubdemand(COVID_Inf,SAR_Rub_C):
         # Gloves:single
-        cropcp = (10**(0.2389*(math.log10(COVID_Inf))**2 + 0.4467*(math.log10(COVID_Inf)) + SAR_Rub_C[ty] + 2.8510))/(1-0.1004)
+        cropcp = (10**( 0.0971*((COVID_Inf)) + SAR_Rub_C[ty] + 2.3400))/(1-0.1004)
         return np.array(cropcp, dtype=dty)
 
 # -------------
@@ -3599,4 +3563,3 @@ for i in range(nb_regionI):
     
 ## Change Temperature Parameters
 theta_0 = 0.1
-
